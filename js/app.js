@@ -5,25 +5,28 @@
 
 let hourswork = ['6am', '7am', '8am', '9am', '10am', '12am', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
+let divContainer = document.getElementById('container')
+let tabEl = document.createElement('table')
+divContainer.appendChild(tabEl)
 let branches = []
 
-function Factory(branch,minicust,maxicust,avgcookie,randomcust,avgcookieP,total){
+function Factory(branch, minicust, maxicust, avgcookie,) {
 
 
-  this.branch= branch;
-  this.minicust= minicust;
+  this.branch = branch;
+  this.minicust = minicust;
   this.maxicust = maxicust;
   this.avgcookie = avgcookie;
-  this. randomcust = randomcust;
-  this.avgcookieP = avgcookieP;
-  this.total = total;
+  this.randomcust = [];
+  this.avgcookieP = [];
+  this.total = 0;
 
   branches.push(this);
 
 }
 
 
-Factory.prototype.randomcustH=function(){
+Factory.prototype.randomcustH = function () {
 
 
   for (let i = 0; i < hourswork.length; i++) {
@@ -36,15 +39,16 @@ Factory.prototype.randomcustH=function(){
     this.randomcust.push(randomcust);
   }
 
-  
+
 }
 
 
 
 
 
-Factory.prototype.calcAvgcookiep=function(){
+Factory.prototype.calcAvgcookiep = function () {
 
+this.randomcustH()
 
   for (let i = 0; i < hourswork.length; i++) {
 
@@ -58,51 +62,105 @@ Factory.prototype.calcAvgcookiep=function(){
 
 
 
+Factory.prototype.render = function(){
 
+  this.calcAvgcookiep()
 
-Factory.prototype.render=function(){
+  let trel = document.createElement('tr')
+  let tdel = document.createElement('td')
+  tdel.textContent = this.branch
+  trel.appendChild(tdel)
 
+  for (let i = 0; i < hourswork.length; i++) {
+    
+    let tdel = document.createElement('td')
+     tdel.textContent = this.avgcookieP[i];
+     trel.appendChild(tdel);
+    
+  }
+let totaltd = document.createElement('td')
+totaltd.textContent = this.total
+trel.appendChild(totaltd);
+tabEl.appendChild(trel);
   
-  let divContainer = document.getElementById('container');
-      let h2el = document.createElement('h2');
-      divContainer.appendChild(h2el);
-      h2el.textContent = this.branch;
-  
-  
-  
-  
-      let ulel = document.createElement('ul');
-      divContainer.appendChild(ulel);
-  
-      for (let i = 0; i< hourswork.length; i++){
-  
-        let liel = document.createElement('li');
-        liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
-        ulel.appendChild(liel);
-      }
-  
-      let totalel = document.createElement('li'); 
-      totalel.textContent = 'total ' + this.total + ' cookies';
-      ulel.appendChild(totalel);
+  }
   
   
-    }
 
 
 
+function createTableheader(){
+
+  let trel = document.createElement('tr')
+  let thbranches = document.createElement('th')
+  trel.appendChild(thbranches);
+  thbranches.textContent= 'Branches';
+for (let i = 0; i < hourswork.length; i++) {
+  let thel = document.createElement('th');
+  thel.textContent= hourswork[i];
+  trel.appendChild(thel)
+  
+}
+let thedailytotal = document.createElement('th')
+trel.appendChild(thedailytotal);
+thedailytotal.textContent= 'Daily location total';
+tabEl.appendChild(trel);
+}
 
 
-let seattleB = new Factory('seattle',23 , 65, 6.3,)
-let tokyoB = new Factory('Tokyo', 3, 24, 1.2,)
-let dubaiB = new Factory('dubai',11 , 38, 3.7,)
-let parisB = new Factory('paris',20, 38, 3.7,)
-let lima = new Factory('lima',2, 16, 4.6,)
+// Lised loops
+
+function creatfooter(){
+
+  let tfel = document.createElement('tr')
+  let tdel = document.createElement('td')
+  tdel.textContent = 'Totals'
+  tfel.appendChild(tdel)
+  tabEl.appendChild(tfel)
+
+  let totaloftotal = 0;
+
+  for (let h = 0; h < hourswork.length; h++) {
+  let thel = document.createElement('td')
+  let sum =0;
+  for (let s = 0; s < branches.length;s++ ){
+ 
+
+    sum += branches[s].avgcookieP[h];
+totaloftotal+= sum;
+  }
+    thel.textContent = sum;
+    tfel.appendChild(thel)
+    
+
+
+  }
+
+  let td3 = document.createElement('td')
+  tfel.appendChild(td3)
+  td3.textContent = totaloftotal;
+}
 
 
 
+let seattle = new Factory('seattle', 23, 65, 6.3,)
+let tokyo = new Factory('Tokyo', 3, 24, 1.2,)
+let dubai = new Factory('dubai', 11, 38, 3.7,)
+let paris = new Factory('paris', 20, 38, 3.7,)
+let lima = new Factory('lima', 2, 16, 4.6,)
 
-console.log(branches)
-branches.render()
+ 
+createTableheader()
+
+seattle.render()
+tokyo.render()
+dubai.render()
+paris.render()
+lima.render()
+creatfooter()
+
+
+
 
 
 // let seattle = {
