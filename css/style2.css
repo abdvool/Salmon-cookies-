@@ -1,0 +1,109 @@
+* {
+
+    box-sizing: border-box ;
+}
+
+
+
+header {
+
+background-image: url(https://lh3.googleusercontent.com/proxy/jlp40GLx-ojbqaT3yJkCqNCJnFTYQKkNshNAikZkc-cO-DD1UJp1lq_0oUWrlwjYIcJy3crJ8Bi4LfldnRqNZrHF9FPXBRWsGfU9jkC9lO3YkDU-iXTDtKAjL6E);
+background-repeat: no-repeat;
+background-position: center;
+border: 5px solid red;
+}
+
+#logo {
+    font-family: fantasy;
+
+
+    text-align: center ;
+padding-top: 350px;    
+font-size: 40px;
+padding-bottom: 20px;
+}
+
+nav ul li {
+    display: inline-block;
+padding-left: 150px;
+padding-bottom: 10px;
+}  
+nav ul li a {
+
+    text-decoration: none;
+    font-size: 20px;
+
+}  
+
+
+
+
+ul{
+
+    margin-left: 500px;
+}
+#intro {
+padding-top: 20px;
+    text-align: center;
+    font-size: 35px;
+    font-family: 'Times New Roman', Times, serif;
+    padding-bottom: 100px;
+}
+
+
+#offer{
+padding-top: 40px;
+    text-align: center;
+    font-size: 25px;
+
+}
+
+
+
+.imgs {
+
+  
+    display: inline-block;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  
+      margin-left: 15%; 
+
+   
+     
+}
+
+h3{
+
+    font-size: 20px;
+}
+
+
+
+
+
+footer{
+    height: 50px;
+    background-color: #FAF9F6;
+  padding-top: 100px;
+    text-align: center;
+  }
+
+  footer ul li {
+    display: inline-block;
+margin-right: 50px;
+    text-align: center;
+padding-bottom: 20px;
+
+  }
+
+  footer ul{
+
+
+    padding-right: 450px;
+  }
+  footer ul li a {
+    text-decoration: none;
+
+  }
+

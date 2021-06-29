@@ -1,20 +1,81 @@
-ul {
 
-    list-style-type: disc;
-    padding: 25px;
-    background: rgb(196, 196, 228);
+*{
 
-}
-h2 {
-
-
-    background-color: red;
-    padding-left: 25px;
-
+    background-color: rgb(255, 255, 244);
 }
 
 
+h1{
+
+    font-size: 20px;
+    text-align: center;
+    padding-top: 100px;
+
+}
+img{
+    display: inline-block;
+
+  
+      margin-left: 30%; }
 
 table, th, td{
+
+    padding: 10px;
+    
     border: 1px solid black;
+
+    text-align: center;
 }
+
+table{
+margin-left: 30%;
+    margin-top:  100px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
