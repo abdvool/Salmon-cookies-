@@ -5,417 +5,580 @@
 
 let hourswork = ['6am', '7am', '8am', '9am', '10am', '12am', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 
+let divContainer = document.getElementById('container')
+let tabEl = document.createElement('table')
+divContainer.appendChild(tabEl)
+let branches = []
 
-let seattle = {
-
-  branch: 'seattle',
-  minicust: 23,
-  maxicust: 65,
-  avgcookie: 6.3,
-  randomcust: [],
-  avgcookieP: [],
-  total: 0,
-
-  randomcustH: function () {
-
-    for (let i = 0; i < hourswork.length; i++) {
-
-      let min = Math.ceil(this.minicust);
-      let max = Math.floor(this.maxicust);
-      let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
+function Factory(branch, minicust, maxicust, avgcookie,) {
 
 
-      this.randomcust.push(randomcust);
-    }
-  },
+  this.branch = branch;
+  this.minicust = minicust;
+  this.maxicust = maxicust;
+  this.avgcookie = avgcookie;
+  this.randomcust = [];
+  this.avgcookieP = [];
+  this.total = 0;
+
+  branches.push(this);
+
+}
 
 
-  calcAvgcookiep: function() {
-
-    for (let i = 0; i < hourswork.length; i++) {
+Factory.prototype.randomcustH = function () {
 
 
-      this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
-      this.total += this.avgcookieP[i];
-    }
-  },
-  render: function(){
+  for (let i = 0; i < hourswork.length; i++) {
+
+    let min = Math.ceil(this.minicust);
+    let max = Math.floor(this.maxicust);
+    let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
 
 
-    let divContainer = document.getElementById('container');
-    let h2el = document.createElement('h2');
-    divContainer.appendChild(h2el);
-    h2el.textContent = this.branch;
+    this.randomcust.push(randomcust);
+  }
+
+
+}
 
 
 
 
-    let ulel = document.createElement('ul');
-    divContainer.appendChild(ulel);
 
-    for (let i = 0; i< hourswork.length; i++){
+Factory.prototype.calcAvgcookiep = function () {
 
-      let liel = document.createElement('li');
-      liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
-      ulel.appendChild(liel);
-    }
+this.randomcustH()
 
-    let totalel = document.createElement('li');
-    totalel.textContent = 'total ' + this.total + ' cookies';
-    ulel.appendChild(totalel);
+  for (let i = 0; i < hourswork.length; i++) {
+
+
+    this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
+    this.total += this.avgcookieP[i];
+  }
+
+
+}
+
+
+
+Factory.prototype.render = function(){
+
+  this.calcAvgcookiep()
+
+  let trel = document.createElement('tr')
+  let tdel = document.createElement('td')
+  tdel.textContent = this.branch
+  trel.appendChild(tdel)
+
+  for (let i = 0; i < hourswork.length; i++) {
+    
+    let tdel = document.createElement('td')
+     tdel.textContent = this.avgcookieP[i];
+     trel.appendChild(tdel);
+    
+  }
+let totaltd = document.createElement('td')
+totaltd.textContent = this.total
+trel.appendChild(totaltd);
+tabEl.appendChild(trel);
+  
+  }
+  
+  
+
+
+
+function createTableheader(){
+
+  let trel = document.createElement('tr')
+  let thbranches = document.createElement('th')
+  trel.appendChild(thbranches);
+  thbranches.textContent= 'Branches';
+for (let i = 0; i < hourswork.length; i++) {
+  let thel = document.createElement('th');
+  thel.textContent= hourswork[i];
+  trel.appendChild(thel)
+  
+}
+let thedailytotal = document.createElement('th')
+trel.appendChild(thedailytotal);
+thedailytotal.textContent= 'Daily location total';
+tabEl.appendChild(trel);
+}
+
+
+// Lised loops
+
+function creatfooter(){
+
+  let tfel = document.createElement('tr')
+  let tdel = document.createElement('td')
+  tdel.textContent = 'Totals'
+  tfel.appendChild(tdel)
+  tabEl.appendChild(tfel)
+
+  let totaloftotal = 0;
+
+  for (let h = 0; h < hourswork.length; h++) {
+  let thel = document.createElement('td')
+  let sum =0;
+  for (let s = 0; s < branches.length;s++ ){
+ 
+
+    sum += branches[s].avgcookieP[h];
+totaloftotal+= sum;
+  }
+    thel.textContent = sum;
+    tfel.appendChild(thel)
+    
 
 
   }
-};
 
+  let td3 = document.createElement('td')
+  tfel.appendChild(td3)
+  td3.textContent = totaloftotal;
+}
 
 
 
-console.log(seattle);
+let seattle = new Factory('seattle', 23, 65, 6.3,)
+let tokyo = new Factory('Tokyo', 3, 24, 1.2,)
+let dubai = new Factory('dubai', 11, 38, 3.7,)
+let paris = new Factory('paris', 20, 38, 3.7,)
+let lima = new Factory('lima', 2, 16, 4.6,)
 
+ 
+createTableheader()
 
-seattle.randomcustH();
+seattle.render()
+tokyo.render()
+dubai.render()
+paris.render()
+lima.render()
+creatfooter()
 
-seattle.calcAvgcookiep();
 
-seattle.render();
 
 
 
+// let seattle = {
 
+//   branch: 'seattle',
+//   minicust: 23,
+//   maxicust: 65,
+//   avgcookie: 6.3,
+//   randomcust: [],
+//   avgcookieP: [],
+//   total: 0,
+// }
+  // randomcustH: function () {
 
+  //   for (let i = 0; i < hourswork.length; i++) {
 
+  //     let min = Math.ceil(this.minicust);
+  //     let max = Math.floor(this.maxicust);
+  //     let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
 
 
+  //     this.randomcust.push(randomcust);
+  //   }
+  // },
 
-let Tokyo = {
 
-  branch: 'Tokyo',
-  minicust: 23,
-  maxicust: 65,
-  avgcookie: 6.3,
-  randomcust: [],
-  avgcookieP: [],
-  total: 0,
+  // calcAvgcookiep: function() {
 
-  randomcustH: function () {
+  //   for (let i = 0; i < hourswork.length; i++) {
 
-    for (let i = 0; i < hourswork.length; i++) {
 
-      let min = Math.ceil(this.minicust);
-      let max = Math.floor(this.maxicust);
-      let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
+  //     this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
+  //     this.total += this.avgcookieP[i];
+  //   }
+  // },
+//   render: function(){
 
 
-      this.randomcust.push(randomcust);
-    }
-  },
+//     let divContainer = document.getElementById('container');
+//     let h2el = document.createElement('h2');
+//     divContainer.appendChild(h2el);
+//     h2el.textContent = this.branch;
 
 
-  calcAvgcookiep: function() {
 
-    for (let i = 0; i < hourswork.length; i++) {
 
+//     let ulel = document.createElement('ul');
+//     divContainer.appendChild(ulel);
 
-      this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
-      this.total += this.avgcookieP[i];
-    }
-  },
-  render: function(){
+//     for (let i = 0; i< hourswork.length; i++){
 
+//       let liel = document.createElement('li');
+//       liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
+//       ulel.appendChild(liel);
+//     }
 
-    let divContainer = document.getElementById('container');
-    let h2el = document.createElement('h2');
-    divContainer.appendChild(h2el);
-    h2el.textContent = this.branch;
+//     let totalel = document.createElement('li');
+//     totalel.textContent = 'total ' + this.total + ' cookies';
+//     ulel.appendChild(totalel);
 
 
+//   }
+// };
 
 
-    let ulel = document.createElement('ul');
-    divContainer.appendChild(ulel);
 
-    for (let i = 0; i< hourswork.length; i++){
 
-      let liel = document.createElement('li');
-      liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
-      ulel.appendChild(liel);
-    }
+// console.log(seattle);
 
-    let totalel = document.createElement('li');
-    totalel.textContent = 'total ' + this.total + ' cookies';
-    ulel.appendChild(totalel);
 
+// seattle.randomcustH();
 
-  }
-};
+// seattle.calcAvgcookiep();
 
+// seattle.render();
 
 
 
-console.log(Tokyo);
 
 
-Tokyo.randomcustH();
 
-Tokyo.calcAvgcookiep();
 
-Tokyo.render();
 
 
 
 
+// let Tokyo = {
 
+//   branch: 'Tokyo',
+//   minicust: 23,
+//   maxicust: 65,
+//   avgcookie: 6.3,
+//   randomcust: [],
+//   avgcookieP: [],
+//   total: 0,
 
+//   randomcustH: function () {
 
-let Dubai = {
+//     for (let i = 0; i < hourswork.length; i++) {
 
-  branch: 'Dubai',
-  minicust: 23,
-  maxicust: 65,
-  avgcookie: 6.3,
-  randomcust: [],
-  avgcookieP: [],
-  total: 0,
+//       let min = Math.ceil(this.minicust);
+//       let max = Math.floor(this.maxicust);
+//       let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
 
-  randomcustH: function () {
 
-    for (let i = 0; i < hourswork.length; i++) {
+//       this.randomcust.push(randomcust);
+//     }
+//   },
 
-      let min = Math.ceil(this.minicust);
-      let max = Math.floor(this.maxicust);
-      let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
 
+//   calcAvgcookiep: function() {
 
-      this.randomcust.push(randomcust);
-    }
-  },
+//     for (let i = 0; i < hourswork.length; i++) {
 
 
-  calcAvgcookiep: function() {
+//       this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
+//       this.total += this.avgcookieP[i];
+//     }
+//   },
+//   render: function(){
 
-    for (let i = 0; i < hourswork.length; i++) {
 
+//     let divContainer = document.getElementById('container');
+//     let h2el = document.createElement('h2');
+//     divContainer.appendChild(h2el);
+//     h2el.textContent = this.branch;
 
-      this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
-      this.total += this.avgcookieP[i];
-    }
-  },
-  render: function(){
 
 
-    let divContainer = document.getElementById('container');
-    let h2el = document.createElement('h2');
-    divContainer.appendChild(h2el);
-    h2el.textContent = this.branch;
 
+//     let ulel = document.createElement('ul');
+//     divContainer.appendChild(ulel);
 
+//     for (let i = 0; i< hourswork.length; i++){
 
+//       let liel = document.createElement('li');
+//       liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
+//       ulel.appendChild(liel);
+//     }
 
-    let ulel = document.createElement('ul');
-    divContainer.appendChild(ulel);
+//     let totalel = document.createElement('li');
+//     totalel.textContent = 'total ' + this.total + ' cookies';
+//     ulel.appendChild(totalel);
 
-    for (let i = 0; i< hourswork.length; i++){
 
-      let liel = document.createElement('li');
-      liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
-      ulel.appendChild(liel);
-    }
+//   }
+// };
 
-    let totalel = document.createElement('li');
-    totalel.textContent = 'total ' + this.total + ' cookies';
-    ulel.appendChild(totalel);
 
 
-  }
-};
 
+// console.log(Tokyo);
 
 
+// Tokyo.randomcustH();
 
-console.log(Dubai);
+// Tokyo.calcAvgcookiep();
 
+// Tokyo.render();
 
-Dubai.randomcustH();
 
-Dubai.calcAvgcookiep();
 
-Dubai.render();
 
 
 
-let Paris = {
 
-  branch: 'Paris',
-  minicust: 23,
-  maxicust: 65,
-  avgcookie: 6.3,
-  randomcust: [],
-  avgcookieP: [],
-  total: 0,
+// let Dubai = {
 
-  randomcustH: function () {
+//   branch: 'Dubai',
+//   minicust: 23,
+//   maxicust: 65,
+//   avgcookie: 6.3,
+//   randomcust: [],
+//   avgcookieP: [],
+//   total: 0,
 
-    for (let i = 0; i < hourswork.length; i++) {
+//   randomcustH: function () {
 
-      let min = Math.ceil(this.minicust);
-      let max = Math.floor(this.maxicust);
-      let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
+//     for (let i = 0; i < hourswork.length; i++) {
 
+//       let min = Math.ceil(this.minicust);
+//       let max = Math.floor(this.maxicust);
+//       let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
 
-      this.randomcust.push(randomcust);
-    }
-  },
 
+//       this.randomcust.push(randomcust);
+//     }
+//   },
 
-  calcAvgcookiep: function() {
 
-    for (let i = 0; i < hourswork.length; i++) {
+//   calcAvgcookiep: function() {
 
+//     for (let i = 0; i < hourswork.length; i++) {
 
-      this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
-      this.total += this.avgcookieP[i];
-    }
-  },
-  render: function(){
 
+//       this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
+//       this.total += this.avgcookieP[i];
+//     }
+//   },
+//   render: function(){
 
-    let divContainer = document.getElementById('container');
-    let h2el = document.createElement('h2');
-    divContainer.appendChild(h2el);
-    h2el.textContent = this.branch;
 
+//     let divContainer = document.getElementById('container');
+//     let h2el = document.createElement('h2');
+//     divContainer.appendChild(h2el);
+//     h2el.textContent = this.branch;
 
 
 
-    let ulel = document.createElement('ul');
-    divContainer.appendChild(ulel);
 
-    for (let i = 0; i< hourswork.length; i++){
+//     let ulel = document.createElement('ul');
+//     divContainer.appendChild(ulel);
 
-      let liel = document.createElement('li');
-      liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
-      ulel.appendChild(liel);
-    }
+//     for (let i = 0; i< hourswork.length; i++){
 
-    let totalel = document.createElement('li');
-    totalel.textContent = 'total ' + this.total + ' cookies';
-    ulel.appendChild(totalel);
+//       let liel = document.createElement('li');
+//       liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
+//       ulel.appendChild(liel);
+//     }
 
+//     let totalel = document.createElement('li');
+//     totalel.textContent = 'total ' + this.total + ' cookies';
+//     ulel.appendChild(totalel);
 
-  }
-};
 
+//   }
+// };
 
 
 
-console.log(Paris);
 
+// console.log(Dubai);
 
-Paris.randomcustH();
 
-Paris.calcAvgcookiep();
+// Dubai.randomcustH();
 
-Paris.render();
+// Dubai.calcAvgcookiep();
 
+// Dubai.render();
 
 
 
+// let Paris = {
 
+//   branch: 'Paris',
+//   minicust: 23,
+//   maxicust: 65,
+//   avgcookie: 6.3,
+//   randomcust: [],
+//   avgcookieP: [],
+//   total: 0,
 
+//   randomcustH: function () {
 
-let lima = {
+//     for (let i = 0; i < hourswork.length; i++) {
 
-  branch: 'lima',
-  minicust: 23,
-  maxicust: 65,
-  avgcookie: 6.3,
-  randomcust: [],
-  avgcookieP: [],
-  total: 0,
+//       let min = Math.ceil(this.minicust);
+//       let max = Math.floor(this.maxicust);
+//       let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
 
-  randomcustH: function () {
 
-    for (let i = 0; i < hourswork.length; i++) {
+//       this.randomcust.push(randomcust);
+//     }
+//   },
 
-      let min = Math.ceil(this.minicust);
-      let max = Math.floor(this.maxicust);
-      let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
 
+//   calcAvgcookiep: function() {
 
-      this.randomcust.push(randomcust);
-    }
-  },
+//     for (let i = 0; i < hourswork.length; i++) {
 
 
-  calcAvgcookiep: function() {
+//       this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
+//       this.total += this.avgcookieP[i];
+//     }
+//   },
+//   render: function(){
 
-    for (let i = 0; i < hourswork.length; i++) {
 
+//     let divContainer = document.getElementById('container');
+//     let h2el = document.createElement('h2');
+//     divContainer.appendChild(h2el);
+//     h2el.textContent = this.branch;
 
-      this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
-      this.total += this.avgcookieP[i];
-    }
-  },
-  render: function(){
 
 
-    let divContainer = document.getElementById('container');
-    let h2el = document.createElement('h2');
-    divContainer.appendChild(h2el);
-    h2el.textContent = this.branch;
 
+//     let ulel = document.createElement('ul');
+//     divContainer.appendChild(ulel);
 
+//     for (let i = 0; i< hourswork.length; i++){
 
+//       let liel = document.createElement('li');
+//       liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
+//       ulel.appendChild(liel);
+//     }
 
-    let ulel = document.createElement('ul');
-    divContainer.appendChild(ulel);
+//     let totalel = document.createElement('li');
+//     totalel.textContent = 'total ' + this.total + ' cookies';
+//     ulel.appendChild(totalel);
 
-    for (let i = 0; i< hourswork.length; i++){
 
-      let liel = document.createElement('li');
-      liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
-      ulel.appendChild(liel);
-    }
+//   }
+// };
 
-    let totalel = document.createElement('li');
-    totalel.textContent = 'total ' + this.total + ' cookies';
-    ulel.appendChild(totalel);
 
 
-  }
-};
 
+// console.log(Paris);
 
 
+// Paris.randomcustH();
 
-console.log(lima);
+// Paris.calcAvgcookiep();
 
+// Paris.render();
 
-lima.randomcustH();
 
-lima.calcAvgcookiep();
 
-lima.render();
 
 
 
 
+// let lima = {
 
+//   branch: 'lima',
+//   minicust: 23,
+//   maxicust: 65,
+//   avgcookie: 6.3,
+//   randomcust: [],
+//   avgcookieP: [],
+//   total: 0,
 
+//   randomcustH: function () {
 
+//     for (let i = 0; i < hourswork.length; i++) {
 
+//       let min = Math.ceil(this.minicust);
+//       let max = Math.floor(this.maxicust);
+//       let randomcust = Math.floor(Math.random() * (max - min + 1) + min);
 
 
+//       this.randomcust.push(randomcust);
+//     }
+//   },
 
 
+//   calcAvgcookiep: function() {
 
+//     for (let i = 0; i < hourswork.length; i++) {
 
 
+//       this.avgcookieP[i] = Math.ceil(this.randomcust[i] * this.avgcookie);
+//       this.total += this.avgcookieP[i];
+//     }
+//   },
+//   render: function(){
 
 
+//     let divContainer = document.getElementById('container');
+//     let h2el = document.createElement('h2');
+//     divContainer.appendChild(h2el);
+//     h2el.textContent = this.branch;
 
 
 
 
+//     let ulel = document.createElement('ul');
+//     divContainer.appendChild(ulel);
 
+//     for (let i = 0; i< hourswork.length; i++){
+
+//       let liel = document.createElement('li');
+//       liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
+//       ulel.appendChild(liel);
+//     }
+
+//     let totalel = document.createElement('li');
+//     totalel.textContent = 'total ' + this.total + ' cookies';
+//     ulel.appendChild(totalel);
+
+
+//   }
+// };
+
+
+
+
+// console.log(lima);
+
+
+// lima.randomcustH();
+
+// lima.calcAvgcookiep();
+
+// lima.render();
+
+
+
+
+
+// let divContainer = document.getElementById('container');
+// let h2el = document.createElement('h2');
+// divContainer.appendChild(h2el);
+// h2el.textContent = this.branch;
+
+
+
+
+// let ulel = document.createElement('ul');
+// divContainer.appendChild(ulel);
+
+// for (let i = 0; i< hourswork.length; i++){
+
+//   let liel = document.createElement('li');
+//   liel.textContent = hourswork[i] + ' ' + this.avgcookieP[i] + ' ' + 'cookies';
+//   ulel.appendChild(liel);
+// }
+
+// let totalel = document.createElement('li');
+// totalel.textContent = 'total ' + this.total + ' cookies';
+// ulel.appendChild(totalel);
