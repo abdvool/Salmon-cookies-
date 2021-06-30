@@ -191,7 +191,7 @@ function addstore(event){
 
   let newstore = new Factory(Storename,Minimumorder,Maximumorder,Averagesales)
 
-  tfel.textContent= ""
+  tfel.textContent= " "
 
   newstore.render()
   creatfooter()
