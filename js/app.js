@@ -110,9 +110,42 @@ tabEl.appendChild(trel);
 
 // Lised loops
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let tfel = document.createElement('tr')
+
 function creatfooter(){
 
-  let tfel = document.createElement('tr')
   let tdel = document.createElement('td')
   tdel.textContent = 'Totals'
   tfel.appendChild(tdel)
@@ -143,6 +176,35 @@ totaloftotal+= sum;
 
 
 
+
+
+
+function addstore(event){
+
+  event.preventDefault();
+
+  let Storename = event.target.Storename.value;
+  let Minimumorder = event.target.Minimumorder.value;
+  let Maximumorder = event.target.Maximumorder.value;
+  let Averagesales = event.target.Averagesales.value;
+
+
+  let newstore = new Factory(Storename,Minimumorder,Maximumorder,Averagesales)
+
+  tfel.textContent= ""
+
+  newstore.render()
+  creatfooter()
+
+
+}
+
+
+
+let myform =document.getElementById('myform');
+myform.addEventListener('submit',addstore);
+
+
 let seattle = new Factory('seattle', 23, 65, 6.3,)
 let tokyo = new Factory('Tokyo', 3, 24, 1.2,)
 let dubai = new Factory('dubai', 11, 38, 3.7,)
@@ -158,6 +220,18 @@ dubai.render()
 paris.render()
 lima.render()
 creatfooter()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
