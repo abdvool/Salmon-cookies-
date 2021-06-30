@@ -29,12 +29,31 @@ table, th, td{
 
 table{
 margin-left: 30%;
-    margin-top:  100px;
+    margin-top:  70px;
+    margin-bottom: 30px;
 }
 
 
 
+fieldset{
 
+    border: 1px solid black;
+margin-right: 1006px;
+margin-left: 657px;
+padding: 12px
+}
+
+label{
+
+    display: inline-block;
+    padding-top: 20px;
+}
+
+input{
+display: inline-block;
+margin-right: 200px;
+margin-top: 50;
+}
 
 
 
