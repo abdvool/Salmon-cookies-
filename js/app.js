@@ -48,7 +48,7 @@ Factory.prototype.randomcustH = function () {
 
 Factory.prototype.calcAvgcookiep = function () {
 
-this.randomcustH()
+  this.randomcustH()
 
   for (let i = 0; i < hourswork.length; i++) {
 
@@ -62,7 +62,7 @@ this.randomcustH()
 
 
 
-Factory.prototype.render = function(){
+Factory.prototype.render = function () {
 
   this.calcAvgcookiep()
 
@@ -72,39 +72,39 @@ Factory.prototype.render = function(){
   trel.appendChild(tdel)
 
   for (let i = 0; i < hourswork.length; i++) {
-    
+
     let tdel = document.createElement('td')
-     tdel.textContent = this.avgcookieP[i];
-     trel.appendChild(tdel);
-    
+    tdel.textContent = this.avgcookieP[i];
+    trel.appendChild(tdel);
+
   }
-let totaltd = document.createElement('td')
-totaltd.textContent = this.total
-trel.appendChild(totaltd);
-tabEl.appendChild(trel);
-  
-  }
-  
-  
+  let totaltd = document.createElement('td')
+  totaltd.textContent = this.total
+  trel.appendChild(totaltd);
+  tabEl.appendChild(trel);
+
+}
 
 
 
-function createTableheader(){
+
+
+function createTableheader() {
 
   let trel = document.createElement('tr')
   let thbranches = document.createElement('th')
   trel.appendChild(thbranches);
-  thbranches.textContent= 'Branches';
-for (let i = 0; i < hourswork.length; i++) {
-  let thel = document.createElement('th');
-  thel.textContent= hourswork[i];
-  trel.appendChild(thel)
-  
-}
-let thedailytotal = document.createElement('th')
-trel.appendChild(thedailytotal);
-thedailytotal.textContent= 'Daily location total';
-tabEl.appendChild(trel);
+  thbranches.textContent = 'Branches';
+  for (let i = 0; i < hourswork.length; i++) {
+    let thel = document.createElement('th');
+    thel.textContent = hourswork[i];
+    trel.appendChild(thel)
+
+  }
+  let thedailytotal = document.createElement('th')
+  trel.appendChild(thedailytotal);
+  thedailytotal.textContent = 'Daily location total';
+  tabEl.appendChild(trel);
 }
 
 
@@ -136,15 +136,15 @@ tabEl.appendChild(trel);
 
 
 
-
-
-
-
-
-
 let tfel = document.createElement('tr')
 
-function creatfooter(){
+
+
+
+
+function creatfooter() {
+
+  let tfel = document.createElement('tr')
 
   let tdel = document.createElement('td')
   tdel.textContent = 'Totals'
@@ -154,17 +154,17 @@ function creatfooter(){
   let totaloftotal = 0;
 
   for (let h = 0; h < hourswork.length; h++) {
-  let thel = document.createElement('td')
-  let sum =0;
-  for (let s = 0; s < branches.length;s++ ){
- 
+    let thel = document.createElement('td')
+    let sum = 0;
+    for (let s = 0; s < branches.length; s++) {
 
-    sum += branches[s].avgcookieP[h];
-totaloftotal+= sum;
-  }
-    thel.textContent = sum;
+
+      sum += branches[s].avgcookieP[h];
+     
+    }
+    thel.textContent += sum;
     tfel.appendChild(thel)
-    
+    totaloftotal += sum;
 
 
   }
@@ -179,30 +179,29 @@ totaloftotal+= sum;
 
 
 
-function addstore(event){
+function addstore(event) {
 
   event.preventDefault();
 
   let Storename = event.target.Storename.value;
   let Minimumorder = event.target.Minimumorder.value;
   let Maximumorder = event.target.Maximumorder.value;
-  let Averagesales = event.target.Averagesales.value;
+  let Averagesales = event.target.Averagesales;
 
 
-  let newstore = new Factory(Storename,Minimumorder,Maximumorder,Averagesales)
+  let newstore = new Factory(Storename, Minimumorder, Maximumorder, Averagesales)
 
-  tfel.textContent= " "
 
-  newstore.render()
-  creatfooter()
+ newstore.render()
+
+  
 
 
 }
 
 
-
-let myform =document.getElementById('myform');
-myform.addEventListener('submit',addstore);
+let myform = document.getElementById('myform');
+myform.addEventListener('submit', addstore);
 
 
 let seattle = new Factory('seattle', 23, 65, 6.3,)
@@ -211,7 +210,7 @@ let dubai = new Factory('dubai', 11, 38, 3.7,)
 let paris = new Factory('paris', 20, 38, 3.7,)
 let lima = new Factory('lima', 2, 16, 4.6,)
 
- 
+
 createTableheader()
 
 seattle.render()
@@ -219,6 +218,7 @@ tokyo.render()
 dubai.render()
 paris.render()
 lima.render()
+
 creatfooter()
 
 

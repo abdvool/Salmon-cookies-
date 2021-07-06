@@ -1,31 +1,51 @@
 
-*{
-
-    background-color: rgb(255, 255, 244);
-}
-
 
 h1{
-
-    font-size: 20px;
+    margin-right: 44px;
+    font-size: 30px;
     text-align: center;
     padding-top: 100px;
-
+    font-family: 'Courier New', Courier, monospace;
+font-weight: bold;
 }
 img{
     display: inline-block;
 
   
-      margin-left: 30%; }
-
-table, th, td{
-
-    padding: 10px;
+      margin-left: 33%;
     
-    border: 1px solid black;
+    }
+
+table td{
+
+    padding: 12px;
+    
+    border: 1px solid red;
 
     text-align: center;
 }
+
+
+
+table th{
+    padding: 12px;
+    font-weight: bold;
+
+    border: 1px solid black;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 table{
 margin-left: 30%;
@@ -39,8 +59,10 @@ fieldset{
 
     border: 1px solid black;
 margin-right: 1006px;
-margin-left: 657px;
-padding: 12px
+margin-left: 969px;
+padding: 12px;
+margin-top: 50px;
+
 }
 
 label{
@@ -54,6 +76,13 @@ display: inline-block;
 margin-right: 200px;
 margin-top: 50;
 }
+
+
+*{
+
+    background-color: rgb(219, 197, 197);
+}
+
 
 
 
